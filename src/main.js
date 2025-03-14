@@ -1,5 +1,10 @@
 const { app, BrowserWindow } = require("electron");
 
+//auto reloads electron.js app
+try {
+  require("electron-reloader")(module);
+} catch (_) {}
+
 //create window
 const createWindow = () => {
   const win = new BrowserWindow({

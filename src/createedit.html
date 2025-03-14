@@ -7,11 +7,19 @@
   </head>
   <body>
     <nav>
-        <button onclick="window.history.back()">Go Back</button>
+      <a href="index.html"><h2>Back</h2></a>
       <a href="save.html"><h2>Save To...</h2></a>
       <a href="themes.html"><h2>Themes</h2></a>
     </nav>
-    <div class="textPanel"></div>
+    <div class="textPanel">
+      <form>
+        <label for="dumpName"></label>
+        <input type="text" id="dumpName" name="dumpName" />
+        <label for="textInput"></label>
+        <textarea id="dumpText" name="dumpText"></textarea>
+        <input type="submit" id="submit" name="submit" />
+      </form>
+    </div>
     <footer class="stats">
       <h3>Word Count</h3>
       <span></span>
