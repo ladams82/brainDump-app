@@ -3,11 +3,11 @@ const { app, BrowserWindow } = require("electron");
 //create window
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 800,
+    width: 700,
     height: 1100,
   });
 
-  win.loadFile("index.html");
+  win.loadFile("src/index.html");
 };
 
 //load window
