@@ -4,7 +4,7 @@
   "description": "desktop app to read, write, and import .txt files and add themes to them",
   "main": "main.js",
   "scripts": {
-    "start" : "electron .",
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/ladams82/brainDump-app/issues"
   },
-  "homepage": "https://github.com/ladams82/brainDump-app#readme"
+  "homepage": "https://github.com/ladams82/brainDump-app#readme",
+  "devDependencies": {
+    "electron": "^35.0.1"
+  }
 }
