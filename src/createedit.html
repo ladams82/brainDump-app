@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="global.css" />
+    <script src="readwrite.js" defer></script>
     <title>Create/Edit Dump</title>
   </head>
   <body>
@@ -12,21 +13,38 @@
       <a href="themes.html"><h2>Themes</h2></a>
     </nav>
     <div class="textPanel">
-      <form>
-        <label for="dumpName"></label>
-        <input type="text" id="dumpName" name="dumpName" />
+      <form id="dumpForm">
+        <label for="dumpName">Dump Name: </label>
+        <input
+          type="text"
+          id="dumpName"
+          name="dumpName"
+          placeholder="Enter Name..."
+          required
+        />
         <label for="textInput"></label>
-        <textarea id="dumpText" name="dumpText"></textarea>
-        <input type="submit" id="submit" name="submit" />
+        <textarea
+          id="dumpText"
+          name="dumpText"
+          placeholder="Dump your thoughts here!"
+        ></textarea>
+        <label for="chooseBin">Choose Bin</label>
+        <select id="bins" name="chooseBin">
+          <option value="bin0">Your Bin</option>
+          <option value="other">New Bin</option>
+        </select>
+        <label for="newBin">New Bin</label>
+        <input type="text" id="newBin" name="newBin" />
+        <input type="submit" id="submit" name="submit" value="save" />
       </form>
     </div>
     <footer class="stats">
       <h3>Word Count</h3>
-      <span></span>
+      <span id="wordCount"></span>
       <h3>Last Modified</h3>
-      <span></span>
+      <span id="lastMod"></span>
       <h3>Saved To</h3>
-      <span></span>
+      <span id="savedTo">Not Saved Yet</span>
     </footer>
   </body>
 </html>
