@@ -36,10 +36,12 @@ app.on("window-all-closed", () => {
 ipcMain.handle("save-dump-to-file", async (event, formData) => {
   const { dumpName, dumpText, chooseOldBin, chooseNewBin } = formData;
 
-
   //default path in app's data directory
   const userDataPath = app.getPath("userData");
-  const dumpsFolder = path.join(userDataPath, chooseOldBin === "other" ? chooseNewBin : chooseOldBin);
+  const dumpsFolder = path.join(
+    userDataPath,
+    chooseOldBin === "other" ? chooseNewBin : chooseOldBin
+  );
 
   //create folder if it doesn't exist
   if (!fs.existsSync(dumpsFolder)) {
@@ -81,4 +83,22 @@ ipcMain.handle("open-file-dialog", async () => {
   }
 
   return { canceled: false, filePath: filePaths[0] };
+});
+
+//to display bin list in viewbins.html
+ipcMain.handle("get-user-data-path", async () => {
+  const userDataPath = app.getPath("userData");
+  try {
+    const bins = fs
+      .readdirSync(userDataPath, { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) => dirent.name);
+
+    console.log("Bins found:", bins);
+
+    return bins;
+  } catch (err) {
+    console.error("Failed to read bins: ", err);
+    return [];
+  }
 });
