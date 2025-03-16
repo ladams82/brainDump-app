@@ -1,22 +1,21 @@
 //this script will get the folders and files from the dir and list them
 //users should be able to click on each bin to show the files within them
 //users should be able to click on the files to be shown in read mode
-async function readDump(dumpName, binName ) {
+async function readDump(dumpName, binName) {
   console.log("this is " + dumpName + " which is in " + binName);
 
-  try{
+  try {
     const result = await window.electronAPI.getFileContent(binName, dumpName);
 
-    if (result.success){
+    if (result.success) {
       localStorage.setItem("fileContent", JSON.stringify(result));
-      window.location.href = 'read.html';
-    }else {
+      window.location.href = "display.html";
+    } else {
       alert("error reading file: ", result.error);
     }
-  } catch (error){
+  } catch (error) {
     console.error("Error in readDump: ", error);
-    alert("Failed to load content :(");
-
+    alert("Failed to load content : ", error);
   }
 }
 

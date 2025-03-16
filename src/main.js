@@ -93,21 +93,21 @@ ipcMain.handle("open-file-dialog", async () => {
 });
 
 //read the items in a selected file and display it in read.html
-ipcMain.handle("get-file-contemts", async (event, binName, dumpName) => {
+ipcMain.handle("get-file-contents", async (event, binName, dumpName) => {
   const userDataPath = app.getPath("userData");
   const bin0Path = path.join(userDataPath, "bin0");
   const getBinPath = path.join(bin0Path, binName);
   const getDumpPath = path.join(getBinPath, dumpName);
 
-  try{
-    const fileContents = fs.readFileSync(getDumpPath, 'utf8');
+  try {
+    const fileContents = fs.readFileSync(getDumpPath, "utf8");
     return {
       success: true,
       content: fileContents,
       fileName: dumpName,
       folderName: binName,
-    }
-  }catch (error){
+    };
+  } catch (error) {
     console.error("couldn't read file ", error);
     return {
       success: false,
@@ -143,7 +143,7 @@ ipcMain.handle("return-dump-path", async (event, binName) => {
   try {
     const dumps = fs
       .readdirSync(chosenBinPath, { withFileTypes: true })
-      .filter((dirent) => dirent.isFile() && dirent.name.endsWith('.txt'))
+      .filter((dirent) => dirent.isFile() && dirent.name.endsWith(".txt"))
       .map((dirent) => dirent.name);
     console.log(chosenBinPath);
 
