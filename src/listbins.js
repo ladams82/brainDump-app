@@ -1,6 +1,35 @@
 //this script will get the folders and files from the dir and list them
 //users should be able to click on each bin to show the files within them
 //users should be able to click on the files to be shown in read mode
+function readDump(dumpName) {
+  console.log(dumpName);
+
+
+  
+}
+
+async function listDump(fileName) {
+  const binLi = document.getElementById(fileName);
+  console.log("Please List " + fileName);
+
+  try {
+    const dumps = await window.electronAPI.getDumps(fileName);
+    console.log(dumps);
+    dumps.forEach((dump) => {
+      const dumpUl = document.createElement("ul");
+      const dumpLi = document.createElement("li");
+      const dumpButton = document.createElement("button");
+      dumpButton.setAttribute("onClick", "readDump('" + dump + "')");
+      dumpButton.textContent = dump;
+
+      binLi.appendChild(dumpUl);
+      dumpUl.appendChild(dumpLi);
+      dumpLi.appendChild(dumpButton);
+    });
+  } catch (error) {
+    console.error("Error reading dump list", error);
+  }
+}
 
 async function init() {
   const binList = document.getElementById("binList");
@@ -10,7 +39,11 @@ async function init() {
     console.log(bins);
     bins.forEach((bin) => {
       const listItem = document.createElement("li");
-      listItem.textContent = bin;
+      listItem.setAttribute("id", bin);
+      const itemButton = document.createElement("button");
+      itemButton.setAttribute("onClick", `listDump('${bin}')`);
+      itemButton.textContent = bin;
+      listItem.appendChild(itemButton);
       binList.appendChild(listItem);
     });
   } catch (error) {
@@ -18,3 +51,4 @@ async function init() {
   }
 }
 document.addEventListener("DOMContentLoaded", init);
+window.listDump = listDump;

@@ -1,7 +1,6 @@
 //connects render process => main process
 const { contextBridge, ipcRenderer } = require("electron");
 
-
 //exposes certain functions to renderer and makes them globally available via electronAPI
 //ipcRenderer.invoke() sends request to main.js and waits for response
 contextBridge.exposeInMainWorld("electronAPI", {
@@ -19,6 +18,10 @@ contextBridge.exposeInMainWorld("electronAPI", {
   },
 
   getBins: () => {
-     return ipcRenderer.invoke("get-user-data-path");
-    },
+    return ipcRenderer.invoke("get-user-data-path");
+  },
+
+  getDumps: (binName) => {
+    return ipcRenderer.invoke("return-dump-path", binName);
+  },
 });

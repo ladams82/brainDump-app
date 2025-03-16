@@ -1,4 +1,10 @@
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  dialog,
+  ipcRenderer,
+} = require("electron");
 const path = require("path");
 const fs = require("fs");
 
@@ -38,8 +44,9 @@ ipcMain.handle("save-dump-to-file", async (event, formData) => {
 
   //default path in app's data directory
   const userDataPath = app.getPath("userData");
+  const bin0Path = path.join(userDataPath, "bin0");
   const dumpsFolder = path.join(
-    userDataPath,
+    bin0Path,
     chooseOldBin === "other" ? chooseNewBin : chooseOldBin
   );
 
@@ -85,12 +92,15 @@ ipcMain.handle("open-file-dialog", async () => {
   return { canceled: false, filePath: filePaths[0] };
 });
 
+//read the items in a selected file and display it in read.html
+
 //to display bin list in viewbins.html
 ipcMain.handle("get-user-data-path", async () => {
   const userDataPath = app.getPath("userData");
+  const bin0Path = path.join(userDataPath, "bin0");
   try {
     const bins = fs
-      .readdirSync(userDataPath, { withFileTypes: true })
+      .readdirSync(bin0Path, { withFileTypes: true })
       .filter((dirent) => dirent.isDirectory())
       .map((dirent) => dirent.name);
 
@@ -99,6 +109,27 @@ ipcMain.handle("get-user-data-path", async () => {
     return bins;
   } catch (err) {
     console.error("Failed to read bins: ", err);
+    return [];
+  }
+});
+
+//to display dump list from specific bin in viewbins.html
+ipcMain.handle("return-dump-path", async (event, binName) => {
+  const userDataPath = app.getPath("userData");
+  const bin0Path = path.join(userDataPath, "bin0");
+  const chosenBinPath = path.join(bin0Path, binName);
+  try {
+    const dumps = fs
+      .readdirSync(chosenBinPath, { withFileTypes: true })
+      .filter((dirent) => dirent.isFile() && dirent.name.endsWith('.txt'))
+      .map((dirent) => dirent.name);
+    console.log(chosenBinPath);
+
+    console.log("Dumps found: ", dumps, " ", chosenBinPath);
+
+    return dumps;
+  } catch (err) {
+    console.error("Failed to read dumps: ", err);
     return [];
   }
 });
