@@ -35,7 +35,10 @@ app.whenReady().then(() => {
 
 //quit app when all windows are closed
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") app.quit();
+  if (process.platform !== "darwin"){
+    localStorage.clear();
+    app.quit();
+  } 
 });
 
 //save form data to a file
