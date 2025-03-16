@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="global.css" />
+    <script src="readwrite.js" defer></script>
+    <title>Read Dump</title>
+  </head>
+  <body>
+    <nav>
+      <button onclick="window.history.back()">Back</button>
+      <a href="createedit.html"><h2>Edit</h2></a>
+      <a href="themes.html"><h2>Themes</h2></a>
+    </nav>
+    <div id="dumpContent">
+      <span id="dumpName"></span>
+      <div class="textPanel" id="dumpText"></div>
+    </div>
+    <footer class="stats">
+      <h3>Word Count</h3>
+      <span id="wordCount"></span>
+      <h3>Last Modified</h3>
+      <span id="lastMod"></span>
+      <h3>Saved To</h3>
+      <span id="savedTo"></span>
+    </footer>
+  </body>
+</html>

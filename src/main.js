@@ -93,6 +93,28 @@ ipcMain.handle("open-file-dialog", async () => {
 });
 
 //read the items in a selected file and display it in read.html
+ipcMain.handle("get-file-contemts", async (event, binName, dumpName) => {
+  const userDataPath = app.getPath("userData");
+  const bin0Path = path.join(userDataPath, "bin0");
+  const getBinPath = path.join(bin0Path, binName);
+  const getDumpPath = path.join(getBinPath, dumpName);
+
+  try{
+    const fileContents = fs.readFileSync(getDumpPath, 'utf8');
+    return {
+      success: true,
+      content: fileContents,
+      fileName: dumpName,
+      folderName: binName,
+    }
+  }catch (error){
+    console.error("couldn't read file ", error);
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+});
 
 //to display bin list in viewbins.html
 ipcMain.handle("get-user-data-path", async () => {
