@@ -1,7 +1,7 @@
 //this file will take submitted form information and create a file for it
 //will also allow users to read preexisting dumps
 
-function init() {
+async function init() {
   const form = document.getElementById("dumpForm");
   const dumpName = document.getElementById("dumpName");
   const dumpText = document.getElementById("dumpText");
@@ -46,7 +46,18 @@ function init() {
     }
   });
 
-  
-
+  try {
+    const selectBin = document.getElementById("bins");
+    const bins = await window.electronAPI.getBins();
+    console.log(bins);
+    bins.forEach((bin) => {
+      const binOpt = document.createElement("option");
+      binOpt.setAttribute("value", bin);
+      binOpt.textContent = bin;
+      selectBin.insertBefore(binOpt, selectBin.children[0]);
+    });
+  } catch (error) {
+    console.error("Couldn't display bins: ", error);
+  }
 }
 document.addEventListener("DOMContentLoaded", init);

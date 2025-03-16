@@ -63,6 +63,8 @@ async function init() {
   } catch (error) {
     console.error("Error reading bin list", error);
   }
+
+  
 }
 document.addEventListener("DOMContentLoaded", init);
 window.listDump = listDump;
