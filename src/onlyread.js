@@ -1,10 +1,10 @@
 //function to send file data to createedit.html when Edit button is pressed.
 function edit() {
-  const dumpData = JSON.parse(localeStorage.getItem("fileContent") || "{}");
+  //const dumpData = JSON.parse(localeStorage.getItem("fileContent") || "{}");
 
   console.log("sending to edit");
 
-  window.location.href = "createedit.html";
+  window.location.href = "createedit.html?edit=true";
 }
 
 function init() {

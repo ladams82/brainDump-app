@@ -12,7 +12,8 @@ contextBridge.exposeInMainWorld("electronAPI", {
   getFileContent: (binName, dumpName) =>
     ipcRenderer.invoke("get-file-contents", binName, dumpName),
 
-  updatewordCount: (text) => {
+  
+  updateWordCount: (text) => {
     const count = text ? text.trim().split(/\s+/).filter(Boolean).length : 0;
     return count;
   },

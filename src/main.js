@@ -35,10 +35,10 @@ app.whenReady().then(() => {
 
 //quit app when all windows are closed
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin"){
+  if (process.platform !== "darwin") {
     localStorage.clear();
     app.quit();
-  } 
+  }
 });
 
 //save form data to a file
@@ -95,12 +95,17 @@ ipcMain.handle("open-file-dialog", async () => {
   return { canceled: false, filePath: filePaths[0] };
 });
 
-//read the items in a selected file and display it in read.html
+//read the items in a selected file and display it in display.html
 ipcMain.handle("get-file-contents", async (event, binName, dumpName) => {
   const userDataPath = app.getPath("userData");
   const bin0Path = path.join(userDataPath, "bin0");
   const getBinPath = path.join(bin0Path, binName);
   const getDumpPath = path.join(getBinPath, dumpName);
+
+  const lastModi = fs.stat(getDumpPath, function (err, stats) {
+    var mtime = stats.mtime;
+    return mtime;
+  });
 
   try {
     const fileContents = fs.readFileSync(getDumpPath, "utf8");
@@ -109,6 +114,8 @@ ipcMain.handle("get-file-contents", async (event, binName, dumpName) => {
       content: fileContents,
       fileName: dumpName,
       folderName: binName,
+      path: getDumpPath,
+      lastMod: lastModi,
     };
   } catch (error) {
     console.error("couldn't read file ", error);
