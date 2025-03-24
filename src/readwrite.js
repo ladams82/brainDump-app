@@ -122,7 +122,7 @@ async function init() {
   // Load available bins
   try {
     if (chooseOldBin) {
-      // Clear existing options to avoid duplicates
+      // Clear existing options to avoid doubles
       while (chooseOldBin.firstChild) {
         chooseOldBin.removeChild(chooseOldBin.firstChild);
       }

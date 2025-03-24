@@ -12,10 +12,19 @@
         Back
       </button>
       <button onclick="edit()"><h2>Edit</h2></button>
+
       <a href="themes.html"><h2>Themes</h2></a>
     </nav>
     <div id="dumpContent">
       <span id="dumpName"></span>
+      <button onclick="renameDump()" id="renameButton"><h2>Rename</h2></button>
+      <div id="renameForm">
+        <form id="renameDump">
+          <label for="newDumpName">New Name: </label>
+          <input name="newDumpName" id="newDumpName" type="text" />
+          <input name="submit" type="submit" id="submit" value="change" />
+        </form>
+      </div>
       <div class="textPanel" id="dumpText"></div>
     </div>
     <footer class="stats">

@@ -12,7 +12,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
   getFileContent: (binName, dumpName) =>
     ipcRenderer.invoke("get-file-contents", binName, dumpName),
 
-  
   updateWordCount: (text) => {
     const count = text ? text.trim().split(/\s+/).filter(Boolean).length : 0;
     return count;
@@ -24,5 +23,13 @@ contextBridge.exposeInMainWorld("electronAPI", {
 
   getDumps: (binName) => {
     return ipcRenderer.invoke("return-dump-path", binName);
+  },
+  renameFile: (oldFileName, currentFolder, newFileName) => {
+    return ipcRenderer.invoke(
+      "rename-file",
+      oldFileName,
+      currentFolder,
+      newFileName
+    );
   },
 });

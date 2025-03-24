@@ -81,6 +81,38 @@ ipcMain.handle("save-dump-to-file", async (event, formData) => {
     };
   }
 });
+
+//rename file in display.html
+ipcMain.handle(
+  "rename-file",
+  async (event, oldFileName, currentFolder, newFileName) => {
+    //safe file name
+    const safeNewName =
+      newFileName.replace(/[^a-z0-9]/gi, "_").toLowerCase() + ".txt";
+
+    const userDataPath = app.getPath("userData");
+    const bin0Path = path.join(userDataPath, "bin0");
+    const newFileBin = path.join(bin0Path, currentFolder);
+    const newNamePath = path.join(newFileBin, safeNewName);
+    try {
+      fs.rename(oldFileName, newNamePath, () => {
+        console.log("success! " + newNamePath);
+      });
+      return {
+        success: true,
+        newFileName: safeNewName,
+        newFilePath: newNamePath,
+        lastModif: new Date().toLocaleString(),
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
+  }
+);
+
 //file dialog
 ipcMain.handle("open-file-dialog", async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
