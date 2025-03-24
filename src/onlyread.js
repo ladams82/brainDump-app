@@ -7,6 +7,17 @@ function edit() {
   window.location.href = "createedit.html?edit=true";
 }
 
+function display() {
+  const renameDiv = document.getElementById("renameForm");
+
+  if (renameDiv.style.display === "none"){
+    renameDiv.style.display = "initial";
+  } else{
+    renameDiv.style.display = "none";
+  }
+
+}
+
 async function renameDump() {
   const dumpData = JSON.parse(localStorage.getItem("fileContent") || "{}");
   const miniForm = document.getElementById("renameDump");
@@ -14,6 +25,8 @@ async function renameDump() {
 
   const dumpNmDiv = document.getElementById("dumpName");
   const renameInput = document.getElementById("newDumpName");
+  /*const renameDiv = document.getElementById("renameForm");
+  const renameButton = document.getElementById("renameButton");*/
 
   const oldName = dumpData.fileName;
   const oldNamePath = dumpData.path;
@@ -62,13 +75,21 @@ function init() {
   const wordCount = document.getElementById("wordCount");
   const lastMod = document.getElementById("lastMod");
   const savedTo = document.getElementById("savedTo");
+  const renameDiv = document.getElementById("renameForm");
+
+  renameDiv.style.display = "none";
 
   //get file data from localStorage
   const dumpData = JSON.parse(localStorage.getItem("fileContent") || "{}");
 
   if (dumpData.content) {
     dumpNmDiv.textContent = dumpData.fileName;
-    dumpTxtDiv.innerHTML = `<pre>${dumpData.content}</pre>`;
+
+    const paragraphs = dumpData.content
+      .split(/\n+/)
+      .map((p) => `<p>${p}</p>`)
+      .join("");
+    dumpTxtDiv.innerHTML = paragraphs;
   } else {
     dumpTxtDiv.textContent = "<p>No content to display :(</p>";
   }

@@ -3,21 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="global.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Armata&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
     <script src="onlyread.js" defer></script>
     <title>Read Dump</title>
   </head>
   <body>
     <nav>
-      <button onclick="window.history.back(); localStorage.clear();">
-        Back
-      </button>
-      <button onclick="edit()"><h2>Edit</h2></button>
+      <a
+        onclick="window.history.back(); localStorage.clear();"
+        class="nav-button"
+      ><h2>Back</h2>
+       
+      </a>
+      <a onclick="edit()" class="nav-button"><h2>Edit</h2></a>
 
-      <a href="themes.html"><h2>Themes</h2></a>
+      <a href="themes.html" class="nav-button"><h2>Themes</h2></a>
     </nav>
     <div id="dumpContent">
       <span id="dumpName"></span>
-      <button onclick="renameDump()" id="renameButton"><h2>Rename</h2></button>
+      <button onclick="renameDump(), display()" id="renameButton">
+        <h2>Rename</h2>
+      </button>
       <div id="renameForm">
         <form id="renameDump">
           <label for="newDumpName">New Name: </label>

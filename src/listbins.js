@@ -95,6 +95,10 @@ async function listDump(fileName) {
   }
 }
 
+async function addNewBin(){
+  
+}
+
 async function init() {
   const binList = document.getElementById("binList");
 
