@@ -95,12 +95,22 @@ async function listDump(fileName) {
   }
 }
 
-async function addNewBin(){
-  
+async function addNewBin() {
+  const newBinForm = document.getElementById("newBinForm");
+  const newBinButton = document.getElementById("newBinButton");
+  const createButton = document.getElementById("submit");
+  const newBinName = document.getElementById("newBinName");
+
+  if (newBinForm.style.display === "none") {
+    newBinForm.style.display = "initial";
+  } else {
+    newBinForm.style.display = "none";
+  }
 }
 
 async function init() {
   const binList = document.getElementById("binList");
+  newBinForm.style.display = "none";
 
   try {
     const bins = await window.electronAPI.getBins();
